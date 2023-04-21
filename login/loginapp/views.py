@@ -12,14 +12,7 @@ from .models import TemplateSelect, Review
 from .forms import AccountForm, ReviewForm #ユーザーアカウントフォーム
 
 
-from django.contrib.auth.mixins import UserPassesTestMixin
 
-class MyCustomMixin(UserPassesTestMixin):
-    def test_func(self):
-        return self.request.user.is_authenticated
-
-    def handle_no_permission(self):
-        return redirect(reverse('logno'))
 #ログイン
 #ログインの返答もこの関数を呼ぶ。
 def Login(request):
@@ -135,6 +128,7 @@ class  ReviewLabolatory(MyCustomMixin, TemplateView):
     #Post処理
    
     def post(self,request):
+        
         labid = request.GET.get('labid')
         labname = request.GET.get('labname')
         self.params["lab_form"] = ReviewForm(data= request.POST)

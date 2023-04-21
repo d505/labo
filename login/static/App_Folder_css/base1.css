@@ -3,66 +3,7 @@
     padding: 0;
   }
 
-
-header {
-    height: 100px;
-    width: 100%;
-    background-color: #1c1f1f;
-    color: rgb(247, 236, 236);
-}
-button{
-  width:300px;
-}
- 
-.header2 {
-  text-align: center;
-}
 body{
-  background: #FFFFFF;
+  background: cadetblue;
   }
-
-
-.container {
-    display: flex;
-    flex-wrap: wrap;
-}
-.item {
-	margin: 10px;
-	padding: 10px;
-	border: 1px solid black;
-  height: 200px;
-  position: relative; /* 追加 */
-}
-.btn {
-    margin: 5px;
-    padding: 10px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.link1,
-.link2 {
-  padding: 5px;
-  background-color: #fff;
-  border: 10px solid #ccc;
-  border-radius: 5px;
-  position: absolute;
-  top: 70%;
-  transform: translateY(-50%);
-  margin: 10px;
-}
-.link1 {
-  left: 0;
-  top: 56%;
-  margin-left: 60px;
-}
-
-.link2 {
-  left: 0;
-  top: 82%;
-  margin-left: 60px;
-}
-
 

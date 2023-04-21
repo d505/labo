@@ -13,9 +13,9 @@
     <!-- header -->
     <header>
         <h1 class="headline">
-            ラボログ
+            <a>ラボログ</a>
         </h1>
-        <div id="head">
+        <div>
             {% if user.is_authenticated %}
             <ul class="nav-list">
                 <li class="nav-list-item">
@@ -37,7 +37,7 @@
             {% endif %}
         </div>
     </header>
-    <h1>評価集計もしくは、アンケートしてくださる方は、目的の学部と学科を選んでください!</h1>
+    <h1>学部と学科を選んでください!</h1>
     <form action="" method="post" class="select_all">
         {% csrf_token %}
         <span class="select_label">学部を選択してください</span>
@@ -89,50 +89,37 @@
                     $(this).hide();
                 }
             })
-        }).change(); 
+        })
     </script>
-    <div class="homepage">
-        <h1>それぞれの学部のホームページ</h1>
-        <p>画像をクリックすることで遷移します</p>
-    </div>
+    <a href="{% url 'review' %}">a</a>
     <div class="img_column">
         <!-- "p-panel-bg-img  " -->
-        <section class="img_link">
-            <a href="http://www.eng.kobe-u.ac.jp/">
-                <div>
-                    <img src='{% static "App_Folder_css/labo_img/工学部.png"%}' class="img">
+        <section class=img>
+            <a href="{% url 'detail' %}">
+                <div class="p-panel-bg-img__img c-img-hover-zoom ">
+                    <img src='{% static "App_Folder_css/labo_img/22c5152171e7f062800be66b2ae1cf03_t.png"%}'
+                        class="js-object-fit-images" alt="" disablewebediting="False">
                 </div>
-                <div class="img_body">
-                    <h3 class="inline_str">
-                        工学部のホームページ
+                <div class="p-panel-bg-img__body js-match-height" style="">
+                    <h3 class="c-head-md js-line-clamp-02 js-match-height-01 u-mb-small" style="">
+                        SCM・ロジスティクス
                     </h3>
+                    <p class=" js-line-clamp-03">
+                        物流が変わる ～ロジスティクス改革～
+                    </p>
+                    <p class="p-block__link "><span class="c-btn-text-arrow c-btn-text-arrow--white">詳細はこちら
+                            ::after</span>
+                    </p>
                 </div>
             </a>
-        </section>
-        <section class="img_link">
-            <a href="http://www.sci.kobe-u.ac.jp/">
-                <div>
-                    <img src='{% static "App_Folder_css/labo_img/理学部.png"%}' class="img">
-                </div>
-                <div class="img_body" >
-                    <h3 class="inline_str">
-                        理学部のホームページ
-                    </h3>
-                </div>
-            </a>
-        </section>
-        <section class="img_link">
-            <a href="http://www.ans.kobe-u.ac.jp/">
-                <div>
-                    <img src='{% static "App_Folder_css/labo_img/農学部.png"%}' class="img">
-                </div>
-                <div class="img_body">
-                    <h3 class="inline_str">
-                        農学部のホームページ
-                    </h3>
-                </div>
-            </a>
-        </section>
+
+            <section class=img>
+                <a href="{% url 'detail' %}">
+                    <div class="p-panel-bg-img__img c-img-hover-zoom ">
+                        <img src='{% static "App_Folder_css/labo_img/25746788_s.png"%}' class="js-object-fit-images"
+                            alt="" disablewebediting="False">
+                    </div>
+            </section>
 
     </div>
 

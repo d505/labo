@@ -1,70 +1,33 @@
 <!DOCTYPE html>
 {% load static %}
+<hmtl>
+
 
 <head>
     <meta charset="utf-8">
     <title>ホーム</title>
     <link rel="stylesheet" href='{% static "App_Folder_css/base1.css" %}' />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-
 <body>
+    <h1>{{ name }}</h1>   
+    {% for value in lab %}
+    <form method="post" name="formview{{value.id}}" action="{% url 'detail' %}">
+        {% csrf_token %}
+    <p>    
+    <input type="hidden" name="labid" value={{value.id}}>
+        <a href="javascript:formview{{value.id}}.submit()">{{ value.room }}</a></p>
+    </form>
+    {%endfor%}
 
-    <header>
-        <h1 class="headline">
-            ラボログ
-        </h1>
-        <h1 class="header2">{{ name }}</h1>
-    </header>
-    <h1>アンケートしてくださる方は、トップページの右上から簡単なアカウントを作ってログインしてから、それぞれの研究室ごとにある、評価アンケートページを押してアンケートをしてください</h1>
-    <div class="container">
-        {% for value in lab %}
-        <div class="item">
-            <button class="btn">{{value.room}}</button>
-            <p>教授　{{value.professor}}</p>
-            <div class="links">
-                <form method="post" name="formview{{value.id}}" action="{% url 'detail' %}">
-                    {% csrf_token %}
+    {% for value in lab %}
+    <form method="get" name="form{{value.id}}" action="{% url 'review' %}">
+        {% csrf_token %}
+    <p>    
+    <input type="hidden" name="labid" value={{value.id}}>
+    <input type="hidden" name="labname" value={{value.room}}>
+        <a href="javascript:form{{value.id}}.submit()">{{ value.room }}評価</a></p>
+    </form>
+    {%endfor%}
 
-                    <p>
-                        <input type="hidden" name="labid" value={{value.id}}>
-                        <a class="link1" href="javascript:formview{{value.id}}.submit()">評価集計ページ</a>
-                    </p>
-                </form>
-                <form method="get" name="form{{value.id}}" action="{% url 'review' %}">
-                    {% csrf_token %}
-                    <p>
-                        <input type="hidden" name="labid" value={{value.id}}>
-                        <input type="hidden" name="labname" value={{value.room}}>
-                        <a class="link2" href="javascript:form{{value.id}}.submit()">評価アンケートページ</a>
-                    </p>
-                </form>
-            </div>
-            {% if  value.url %}
-            <a href="{{value.url}}">研究室ホームページ</a>
-            {% else %}
-            <p>研究室ホームページなし</p>
-            {%endif%}
-            
-        </div>
-        {%endfor%}
-
-
-    </div>
-    <!-- <script>
-            console.log('JavaScriptファイルが読み込まれました');
-            const items = document.querySelectorAll('.item');
-            console.log()
-            items.forEach(item => {
-                const button = item.querySelector('.btn');
-                button.addEventListener('click', () => {
-                    const links = item.querySelectorAll('a');
-                    links.forEach(link => {
-                        link.classList.toggle('show');
-                    });
-                });
-            });
-        </script> -->
-
-</body>
+</hmtl>

@@ -1,4 +1,6 @@
 import os
+import pandas as pd
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView #テンプレートタグ
 from django.contrib.auth import authenticate, login, logout
@@ -6,13 +8,22 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
+from django.db import models
 
 from .name_list import NAME_LIST
 from .models import TemplateSelect, Review
 from .forms import AccountForm, ReviewForm #ユーザーアカウントフォーム
 
 
+from django.contrib.auth.mixins import UserPassesTestMixin
 
+class MyCustomMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_authenticated
+
+    def handle_no_permission(self):
+        return redirect(reverse('logno'))
+    
 #ログイン
 #ログインの返答もこの関数を呼ぶ。
 def Login(request):
@@ -110,7 +121,7 @@ class  AccountRegistration(TemplateView):
     
 
 #研究室の評価
-class  ReviewLabolatory(MyCustomMixin, TemplateView):
+class  ReviewLabolatory(MyCustomMixin,TemplateView):
 
     def __init__(self):
         self.params = {
@@ -128,32 +139,32 @@ class  ReviewLabolatory(MyCustomMixin, TemplateView):
     #Post処理
    
     def post(self,request):
-        
         labid = request.GET.get('labid')
         labname = request.GET.get('labname')
         self.params["lab_form"] = ReviewForm(data= request.POST)
 
         #フォーム入力の有効検証
-        if self.params["lab_form"].is_valid():
-            # アカウント情報をDB保存
-            lab = self.params["lab_form"].save(commit=False)
-            lab.lab_id = labid
-            lab.lab_name = labname
-            lab.user = request.user
-            # # パスワードをハッシュ化
-            # lab.set_password(lab.password)
-            # # ハッシュ化パスワード更新
-            lab.save()
+        try:
+            if self.params["lab_form"].is_valid():
+                # アカウント情報をDB保存
+                lab = self.params["lab_form"].save(commit=False)
+                lab.lab_id = labid
+                lab.lab_name = labname
+                lab.user = request.user
+                # # パスワードをハッシュ化
+                # lab.set_password(lab.password)
+                # # ハッシュ化パスワード更新
+                lab.save()
 
-            # アカウント作成情報更新
-            self.params["LabCreate"] = True
+                # アカウント作成情報更新
+                self.params["LabCreate"] = True
 
-        else:
+        except IntegrityError:
             # フォームが有効でない場合
             print(self.params["lab_form"].errors)
+            return redirect(reverse('logno'))  
 
         return render(request,"App_Folder_HTML/review.html",context=self.params)
-        # return print(self.params)
 
 #ホーム
 def home(request):
@@ -189,11 +200,16 @@ def facaluty_department(request,faculty,department):
 def detail(request):
     lab_id = request.POST.get('labid')
     reviews = Review.objects.filter(lab_id=lab_id)
+    number = Review.objects.filter(lab_id=lab_id).count()
     percent = [0, 0, 0, 0]
+    comment = []
     for review in reviews:
         percent = [x + y for x,y in zip(percent, review.get_percent())]
-    params = {'labid': lab_id,'reviews':percent}
+        comment.append(review.get_comment())
+    percent = [int(n/number) for n in percent]
+    params = {'labid': lab_id,'review1':percent[0],'review2':percent[1],'review3':percent[2],'review4':percent[3],'comment':comment}
     print(percent)
+    print(comment)
     return render(request,"faculty_and_department/detail.html",context = params)
 
 def logno(request):

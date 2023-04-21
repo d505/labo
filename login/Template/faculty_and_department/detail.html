@@ -4,12 +4,17 @@
 <head>
     <meta charset="utf-8">
     <title>詳細ホーム</title>
-    <link rel="stylesheet" href='{% static "App_Folder_css/hedder.css"%}' />
+    <link rel="stylesheet" href='{% static "App_Folder_css/hedder2.css"%}' />
 </head>
 
 <body>
-    <h1 color="red">評価シート</h1>
-    <h1>ここにコンテンツを載せよう！</h1>
-    <a href="{% url 'review' %}">評価</a>
-    <h1>{{labid}}</h1>
+    <h1><p>評価結果</p></h1>
+    <p>担当教授の干渉度:{{review1}}</p>
+    <p>先輩・後輩との関わり:{{review2}}</p>
+    <p>研究室の設備:{{review3}}</p>
+    <p>学会のレベル:{{review4}}</p>
+    <p>コメント</p>
+    {% for comm in comment %}
+        <div class="ib">{{comm}}</div><br>
+    {% endfor %}
 </body>

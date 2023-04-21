@@ -68,6 +68,9 @@ class Review(models.Model):
         percent4 = round(self.score4 / 5 * 100)
         return percent1,percent2,percent3,percent4
     
+    def get_comment(self):
+        return self.comment
+    
 
 
         

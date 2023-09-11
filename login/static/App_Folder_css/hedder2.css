@@ -33,6 +33,7 @@ header .headline {
   list-style: none;
   display: inline-block;
   margin: 0 20px;
+  color: #fff; /* フォントの色 */
 }
 .login{
   color: rgb(247, 236, 236);

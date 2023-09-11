@@ -24,10 +24,16 @@ header {
   right: 0;
 }
 
+.nav-list a {
+  color: rgb(247, 236, 236);
+ 
+}
+
 .nav-list-item {
   list-style: none;
   display: inline-block;
   margin: 0 20px;
+  
 }
 .login{
   color: rgb(247, 236, 236);

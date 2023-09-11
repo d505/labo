@@ -12,6 +12,8 @@ urlpatterns = [
     path('review',views.ReviewLabolatory.as_view(), name='review'),
     path('logno',views.logno, name='logno'),
     path('noreview',views.noreview, name='noreview'),
-    path('doubleac',views.doubleac, name='doubleac')
+    path('doubleac',views.doubleac, name='doubleac'),
+    path( 'chatindex', views.chatindex, name='chatindex'),
+    path( 'chat/<str:room_name>/', views.chat, name='chat'),
    
 ]

@@ -223,3 +223,9 @@ def doubleac(request):
 
 def noreview(request):
     return render(request,"App_Folder_HTML/noreview.html")
+
+def chatindex(request):
+    return render(request, "App_Folder_HTML/chatindex.html")
+
+def chat(request,room_name):
+    return render( request, 'App_Folder_HTML/chat.html',{"room_name": room_name})

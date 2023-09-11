@@ -162,7 +162,7 @@ class  ReviewLabolatory(MyCustomMixin,TemplateView):
         except IntegrityError:
             # フォームが有効でない場合
             print(self.params["lab_form"].errors)
-            return redirect(reverse('logno'))  
+            return redirect(reverse('doubleac'))  
 
         return render(request,"App_Folder_HTML/review.html",context=self.params)
 
@@ -201,16 +201,25 @@ def detail(request):
     lab_id = request.POST.get('labid')
     reviews = Review.objects.filter(lab_id=lab_id)
     number = Review.objects.filter(lab_id=lab_id).count()
-    percent = [0, 0, 0, 0]
-    comment = []
-    for review in reviews:
-        percent = [x + y for x,y in zip(percent, review.get_percent())]
-        comment.append(review.get_comment())
-    percent = [int(n/number) for n in percent]
-    params = {'labid': lab_id,'review1':percent[0],'review2':percent[1],'review3':percent[2],'review4':percent[3],'comment':comment}
-    print(percent)
-    print(comment)
-    return render(request,"faculty_and_department/detail.html",context = params)
+    try:
+        percent = [0, 0, 0, 0]
+        comment = []
+        for review in reviews:
+            percent = [x + y for x,y in zip(percent, review.get_percent())]
+            comment.append(review.get_comment())
+        percent = [int(n/number) for n in percent]
+        params = {'labid': lab_id,'review1':percent[0],'review2':percent[1],'review3':percent[2],'review4':percent[3],'comment':comment}
+        print(percent)
+        print(comment)
+        return render(request,"faculty_and_department/detail.html",context = params)
+    except ZeroDivisionError:
+        return redirect(reverse('noreview'))
 
 def logno(request):
     return render(request,"App_Folder_HTML/logno.html")
+
+def doubleac(request):
+    return render(request,"App_Folder_HTML/doubleac.html")
+
+def noreview(request):
+    return render(request,"App_Folder_HTML/noreview.html")

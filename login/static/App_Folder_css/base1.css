@@ -12,9 +12,7 @@ header {
     background-color: #1c1f1f;
     color: rgb(247, 236, 236);
 }
-button{
-  width:300px;
-}
+
  
 .header2 {
   text-align: center;
@@ -26,7 +24,9 @@ header {
   color: rgb(247, 236, 236);
   position: relative; /* 子要素を基準にした位置指定を有効にする */
 }
-
+button{
+  width:300px;
+}
 /* ヘッダー内の要素スタイル */
 .header2 {
   text-align: center;

@@ -16,6 +16,8 @@
 ラボログのホームページが以下になっています。　　
 学部と学科を選択すると研究室一覧に遷移する。
 <img width="845" alt="image" src="https://github.com/d505/labo/assets/58736165/4537aa0b-1998-4833-88e2-c7ad21d1b322">   
+
+    
 下のほうには、興味で追加したredisを使ったチャットと簡単な掲示板へのリンク  
 <img width="848" alt="image" src="https://github.com/d505/labo/assets/58736165/3e14ebb0-73e9-4500-8c5b-e16281422c3a">
 
@@ -36,6 +38,15 @@
 ## アンケート結果表示
 評価結果は以下のようになる。
 <img width="943" alt="スクリーンショット 2023-04-22 021816" src="https://user-images.githubusercontent.com/58736165/233697474-2a53bdb5-a1bd-43d3-a556-922aa66c3d27.png">
+
+## redis  
+web情報を参考にした簡単なredisを活用したチャット  
+<img width="859" alt="image" src="https://github.com/d505/labo/assets/58736165/61d2e161-82b8-4f60-a59f-8dfffce01959">
+
+## 掲示板 
+web情報を参考にした簡単な掲示板(MySQLにテキストなどは保存している。）
+<img width="844" alt="image" src="https://github.com/d505/labo/assets/58736165/50a6dcbc-215b-40f8-91e6-2abaf8860f26">
+
 
 
 

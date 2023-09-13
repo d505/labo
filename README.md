@@ -3,7 +3,7 @@
 ラボログ
 
 # アプリについて
-ラボログという神戸大学の研究室を対象にした評価システムのwebアプリ。評価をしてもらって、その結果を表示してくれます。
+神戸大学の研究室を対象にユーザーがアンケート形式で評価するwebアプリです。評価をしてもらって、その結果を表示してくれます。
 研究室情報が少ないという問題を解決するために開発しました。
 
 # システムについて
@@ -41,11 +41,11 @@
 <img width="943" alt="スクリーンショット 2023-04-22 021816" src="https://user-images.githubusercontent.com/58736165/233697474-2a53bdb5-a1bd-43d3-a556-922aa66c3d27.png">
 
 ## redis  
-web情報を参考にした簡単なredisを活用したチャット  
+簡単なredisを活用したチャット  
 <img width="859" alt="image" src="https://github.com/d505/labo/assets/58736165/61d2e161-82b8-4f60-a59f-8dfffce01959">
 
 ## 掲示板 
-web情報を参考にした簡単な掲示板(MySQLにテキストなどは保存している。）
+簡単な掲示板(MySQLにテキストなどは保存している。）
 <img width="841" alt="image" src="https://github.com/d505/labo/assets/58736165/8d665e3c-ec84-41f6-b97e-65b80be5e47f">
 
 

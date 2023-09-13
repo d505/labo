@@ -19,11 +19,11 @@
   {% else %}
   <div class="reg">
     <table class="reg_form">
-
+<!-- 指定がない場合は同じURLに飛ばされる -->
       <form enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ account_form.as_table }}
-        {{ add_account_form.as_table }}
+        <!-- {{ add_account_form.as_table }} -->
         <tr>
           <td></td>
           <td>

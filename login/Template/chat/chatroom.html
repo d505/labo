@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>チャットROOM</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style type="text/css">
+        .homepage {
+            text-align: center;
+        }
+
+        #menu-icon {
+
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+        }
+
+        #menu {
+            display: none;
+            background-color: #f5f5f5;
+            /* 明るい背景色に変更 */
+            color: black;
+            /* 黒色のテキストに変更 */
+            position: absolute;
+            top: 44px;
+            /* メニューアイコンの下に配置 */
+            right: 10px;
+            /* メニューアイコンの右に配置 */
+            padding: 10px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .nav-list-item {
+            list-style: none;
+            display: inline-block;
+            margin: 0 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <div id="menu">
+
+        <li class="nav-list-item">
+            <div><a href="{% url 'home' %}">ホーム</a></div>
+            <div> <a href="{% url 'chathome' %}">ルーム選択</a></div>
+        </li>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none"; // メニューを非表示
+            } else {
+                menu.style.display = "block"; // メニューを表示
+            }
+        }
+    </script>
+
+
+
+    <div class="homepage">
+        <h1>部屋名{{room_name}}</h1>
+    </div>
+    <p>
+    <p>
+    <p></p>
+    </p>
+    </p>
+    </p>
+    <form action="" onsubmit="onsubmitButton_Send(); return false;">
+        メッセージ : <input type="text" id="input_message" autocomplete="off" autofocus /><input type="submit" value="送信" />
+    </form>
+    <div class="card mb-3">
+        <div class="card-body">
+
+            <ul id="list_message" class="card-text"></ul>
+        </div>
+    </div>
+
+
+    {{room_name|json_script:"room-name"}}
+
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const inputmessage = document.getElementById("input_message");
+        const listmessage = document.getElementById("list_message");
+
+        let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+        const g_socket = new WebSocket(ws_scheme + "://" + window.location.host + "/ws/chat/" + roomName + "/");
+
+        function onsubmitButton_Send() {
+
+            let message = inputmessage.value;
+            if (!message) {
+                return;
+            }
+
+            g_socket.send(JSON.stringify({ "message": message }));
+
+
+            inputmessage.value = "";
+        }
+
+        g_socket.onmessage = (event) => {
+
+            let data = JSON.parse(event.data);
+            let message = data["message"];
+            let elementLi = document.createElement("li");
+            elementLi.textContent = message;
+            listmessage.append(elementLi);
+        };
+
+        g_socket.onclose = (event) => {
+            console.error("Unexpected : Chat socket closed.");
+        };
+    </script>
+</body>
+
+</html>

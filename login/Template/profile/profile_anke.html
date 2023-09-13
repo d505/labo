@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <title>プロファイルアンケート</title>
+
+</head>
+
+<body>
+   <h1>アンケートした内容</h1>
+   {% for answer in an %}
+   <h1>
+      <p>{{answer.lab_name}}</p>
+   </h1>
+   <p>担当教授の干渉度:{{answer.score1}}</p>
+   <p>先輩・後輩との関わり:{{answer.score2}}</p>
+   <p>研究室の設備:{{answer.score3}}</p>
+   <p>学会のレベル:{{answer.score4}}</p>
+   <p>コメント:{{answer.comment}}</p>
+   {% endfor %}
+
+   <a href="{% url 'home' %}">ホーム</a>
+
+</body>
+
+</html>

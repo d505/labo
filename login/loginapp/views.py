@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.views.generic import TemplateView #テンプレートタグ
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -9,13 +9,17 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from django.db import models
-
+from django.contrib.auth.models import User
 from .name_list import NAME_LIST
-from .models import TemplateSelect, Review
-from .forms import AccountForm, ReviewForm #ユーザーアカウントフォーム
-
-
+from .models import TemplateSelect, Review, UserProfile,Topics
+from .forms import AccountForm, ReviewForm, CustomUserChangeForm,CreateTopicForm,DeleteTopicForm,PostTextForm
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.views import PasswordChangeDoneView
+from django.contrib import messages
+from django.http import Http404
+from .models import Topics, Texts
+
+
 
 class MyCustomMixin(UserPassesTestMixin):
     def test_func(self):
@@ -189,7 +193,9 @@ def facaluty_department(request,faculty,department):
     # print(labo_name_list)
 
     # params = {'name':faculty_and_department,'labo_name':labo_name_list}
+    
     faculty_and_department = TemplateSelect.objects.filter(faculty=faculty,department=department).all()
+    
     name = f'{faculty}{department}'
 
     # params = {'name':name,'labo_name':labo_name_list}
@@ -209,8 +215,6 @@ def detail(request):
             comment.append(review.get_comment())
         percent = [int(n/number) for n in percent]
         params = {'labid': lab_id,'review1':percent[0],'review2':percent[1],'review3':percent[2],'review4':percent[3],'comment':comment}
-        print(percent)
-        print(comment)
         return render(request,"faculty_and_department/detail.html",context = params)
     except ZeroDivisionError:
         return redirect(reverse('noreview'))
@@ -224,8 +228,89 @@ def doubleac(request):
 def noreview(request):
     return render(request,"App_Folder_HTML/noreview.html")
 
-def chatindex(request):
-    return render(request, "App_Folder_HTML/chatindex.html")
+def chathome(request):
+    return render(request, "chat/chathome.html")
 
-def chat(request,room_name):
-    return render( request, 'App_Folder_HTML/chat.html',{"room_name": room_name})
+def chatroom(request,room_name):
+    return render( request, 'chat/chatroom.html',{"room_name": room_name})
+
+@login_required
+def profile(request):
+    return render(request, 'profile/profile.html', {'user_profile': request.user})
+
+@login_required
+def profile_anke(request):
+    user_answer = Review.objects.filter(user_id=request.user.id)
+    return render(request, 'profile/profile_anke.html', {'an': user_answer})
+
+@login_required
+def profile_update(request):
+    user_profile = request.user
+    
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('profile')) 
+    else:
+        form = CustomUserChangeForm()
+    
+    return render(request, 'profile/profile_update.html', {'form': form})
+
+@login_required
+def profile_delete(request):
+    if request.method == 'POST':
+        request.user.is_active = False
+        request.user.save()
+        logout(request)  
+        return redirect(reverse('home')) 
+    return render(request, 'profile/profile_delete.html')  
+
+
+class CustomPasswordChangeDoneView(PasswordChangeDoneView):
+    template_name = 'profile/password_change_done.html' 
+
+
+def board_create(request):
+    create_topic_form = CreateTopicForm(request.POST or None)
+    if create_topic_form.is_valid():
+        create_topic_form.instance.user = request.user
+        create_topic_form.save()
+        return redirect(reverse('board_list'))
+    
+    return render(request, 'board/board_create.html', context={'create_topic_form': create_topic_form})
+
+def board_list(request): 
+    topics = Topics.objects.all()
+    return render(request, 'board/board_list.html', context={'topics': topics})
+
+def board_edit(request, id):
+    topic = get_object_or_404(Topics, id=id)
+    if topic.user.id != request.user.id:
+        raise Http404
+    edit_topic_form = CreateTopicForm(request.POST or None, instance=topic)
+    if edit_topic_form.is_valid():
+        edit_topic_form.save()
+        return redirect(reverse('board_list'))
+    return render(request, 'board/board_edit.html',context={'edit_topic_form': edit_topic_form,'id': id})
+
+def board_delete(request, id): 
+    topic = get_object_or_404(Topics, id=id)
+    if topic.user.id != request.user.id:
+        raise Http404
+    delete_topic_form = DeleteTopicForm(request.POST or None)
+    if delete_topic_form.is_valid():
+        topic.delete()
+        return redirect(reverse('board_list'))
+    return render(request, 'board/board_delete.html', context={'delete_topic_form': delete_topic_form})
+
+def board_post_texts(request, topic_id):
+    post_text_form = PostTextForm(request.POST or None)
+    topic = get_object_or_404(Topics, id=topic_id)
+    texts = Texts.objects.pick_by_topic_id(topic_id) 
+    if post_text_form.is_valid():
+        post_text_form.instance.topic = topic
+        post_text_form.instance.user = request.user
+        post_text_form.save()
+        return redirect('board_post_texts', topic_id=topic_id)
+    return render(request, 'board/board_post_texts.html', context={'post_text_form': post_text_form,'topic': topic,'texts': texts,})

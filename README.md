@@ -46,7 +46,8 @@ web情報を参考にした簡単なredisを活用したチャット
 
 ## 掲示板 
 web情報を参考にした簡単な掲示板(MySQLにテキストなどは保存している。）
-<img width="844" alt="image" src="https://github.com/d505/labo/assets/58736165/50a6dcbc-215b-40f8-91e6-2abaf8860f26">
+<img width="841" alt="image" src="https://github.com/d505/labo/assets/58736165/8d665e3c-ec84-41f6-b97e-65b80be5e47f">
+
 
 
 

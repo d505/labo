@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+
+</head>
+<html>
+
+<body>
+    {% block content %}
+    <h2>新しい掲示板を作ります。タイトルを入力してください</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ create_topic_form.as_p }}
+        <input type="submit" value="作成">
+    </form>
+    {% endblock %}
+</body>
+
+</html>

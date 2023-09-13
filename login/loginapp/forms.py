@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
+from .models import Review,Topics, Texts
 
-from .models import Account,Review
+
+
 
 # フォームクラス作成
 #書き換える場合フィールド書けばいい。
@@ -39,3 +42,33 @@ class ReviewForm(forms.ModelForm):
                   }
 
 
+class CustomUserChangeForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.pop('password', None)
+
+    class Meta:
+        model = User
+        fields = ['username','email']
+        labels = {'username':'ユーザー名','email':'メールアドレス'}
+
+
+class CreateTopicForm(forms.ModelForm):
+    title = forms.CharField(label='Title')
+
+    class Meta:
+        model = Topics
+        fields = ('title',)
+
+class DeleteTopicForm(forms.ModelForm):
+
+    class Meta:
+        model = Topics
+        fields = []
+
+class PostTextForm(forms.ModelForm): 
+    text = forms.CharField(label='', widget=forms.Textarea(attrs={'rows':10,'cols':50}))
+    
+    class Meta:
+        model = Texts
+        fields = ('text',)

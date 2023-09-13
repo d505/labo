@@ -11,9 +11,47 @@ header {
   color: rgb(247, 236, 236);
   
 }
+#user-name {
+  position: absolute;
+  top: -5px; /* ページの上部に配置 */
+  font-size: 40px;
+  right: 70px; /* メニューアイコンの左に配置 */
+  white-space: nowrap; /* テキストを折り返さないように設定 */
+}
+#menu-icon {
 
+  cursor: pointer;
+  position: absolute;
+  top: 10px; /* ページ上部からの位置を調整 */
+  right: 10px; /* ページ右上からの位置を調整 */
+   font-size: 30px; /* メニューアイコンのフォントサイズを調整 */
+}
 
-
+/* メニューが表示された際のスタイル */
+#menu {
+  display: none;
+  background-color: #f5f5f5; /* 明るい背景色に変更 */
+  color: black; /* 黒色のテキストに変更 */
+  position: absolute;
+  top: 44px; /* メニューアイコンの下に配置 */
+  right: 10px; /* メニューアイコンの右に配置 */
+  padding: 10px;
+  border-radius: 5px;
+}
+#menu_in {
+  display: none;
+  background-color: #f5f5f5; /* 明るい背景色に変更 */
+  color: black; /* 黒色のテキストに変更 */
+  position: absolute;
+  top: 44px; /* メニューアイコンの下に配置 */
+  right: 10px; /* メニューアイコンの右に配置 */
+  padding: 10px;
+  border-radius: 5px;
+}
+.headline {
+  text-align: center; /* ヘッダー内のテキストを中央に配置 */
+  top:40;
+}
 .nav-list {
   line-height: 80px;
   float: right;
@@ -35,9 +73,7 @@ header {
   margin: 0 20px;
   
 }
-.login{
-  color: rgb(247, 236, 236);
-}
+
 
 body{
   height: 100vh;

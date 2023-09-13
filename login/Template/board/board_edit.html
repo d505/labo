@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+
+</head>
+<html>
+
+<body>
+    {% block content %}
+    <h2>タイトル変更できます</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ edit_topic_form.as_p }}
+        <input type="submit" value="update">
+    </form>
+    <p><a class="navbar-brand" href="{% url 'board_delete' id=id %}">delete</a></p>
+    {% endblock %}
+</body>
+
+</html>

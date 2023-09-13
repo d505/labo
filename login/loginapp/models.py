@@ -1,17 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+
 #ForeignKeyとoneTooneはここ見ればいい
 # https://note.com/shinya_hd/n/n240c3613b60f
 
 # ユーザーアカウントのモデルクラス
-class Account(models.Model):
-    # ユーザー認証のインスタンス(1vs1関係)
-    user = models.OneToOneField(User, on_delete=models.CASCADE) #Userにも保存されている。
-    #追加の部分がAccountのテーブルに保存されている。
-    def __str__(self): #管理画面で見るときに役に立つ。
-        return self.user.username
+# class Account(models.Model):
+#     # ユーザー認証のインスタンス(1vs1関係)
+#     user = models.OneToOneField(User, on_delete=models.CASCADE) #Userにも保存されている。
+#     #追加の部分がAccountのテーブルに保存されている。
+#     def __str__(self): #管理画面で見るときに役に立つ。
+#         return self.user.username
     
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
 
 class TemplateSelect(models.Model):
 
@@ -71,8 +75,30 @@ class Review(models.Model):
     def get_comment(self):
         return self.comment
     
+class Topics(models.Model):
+
+    title = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'topics'
+
+class TextsManager(models.Manager): 
+    def pick_by_topic_id(self, topic_id):
+        return self.filter(topic_id=topic_id).order_by('id').all()
 
 
-        
+class Texts(models.Model):
+
+    text = models.CharField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    topic = models.ForeignKey('Topics', on_delete=models.CASCADE)
+    objects = TextsManager() 
+    
+    class Meta:
+        db_table = 'texts'
+
+
+
 
 

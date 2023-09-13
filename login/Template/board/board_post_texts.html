@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <!-- bootstrap -->
+  <style type="text/css">
+    .homepage {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  {% block content %}
+  <div class="homepage">
+    <h1>{{ topic.title }}</h1>
+  </div>
+  {% for text in texts %}
+  <div class="card mb-3">
+    <div class="card-body">
+      {% if text.user.picture %}
+      <img width="50pc" height="50px" src="{{ text.user.picture.url }}">
+      {% endif %}
+      <p>ユーザー名: {{ text.user.username }}</p>
+      <p class="card-text">{{ text.text | linebreaks }}</p>
+    </div>
+  </div>
+  {% endfor %}
+  <form method="POST">
+    {% csrf_token %}
+    {{ post_text_form.as_p }}
+    <input type="submit" value="送信">
+  </form>
+  <a href="{% url 'board_list' %}">トピックリストへ</a>
+
+  {% endblock %}
+</body>
+
+</html>

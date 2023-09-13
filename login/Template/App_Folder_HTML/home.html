@@ -12,31 +12,68 @@
 <body>
     <!-- header -->
     <header>
-        <h1 class="headline">
-            ラボログ
-        </h1>
+       
+        
+        <!-- メニュー項目 -->
+   
+        <h1 class="headline">ラボログ</h1>
         <div id="head">
             {% if user.is_authenticated %}
+            <div id="menu-icon" onclick="toggleMenu()">&#9776;</div>
+            <!-- <div id="menu-icon">&#9776;</div> -->
             <ul class="nav-list">
-                <li class="nav-list-item">
-                    <h1>{{UserID}}さん</h1>
-                </li>
-                <li class="nav-list-item">
-                    <a href="{% url 'Logout' %}">ログアウト</a>
-                </li>
+                
+                    <div id="user-name">ようこそ　{{UserID}}さん</div>
             </ul>
+            <div id="menu">
+               
+                <li class="nav-list-item" >
+                    <div><a href="{% url 'Logout' %}">ログアウト</a></div>
+                    <div><a href="{% url 'profile' %}">プロフィール</a></div>
+                    <div><a href="{% url 'profile_update' %}">プロフィール変更</a></div>
+                    <div><a href="{% url 'password_change' %}">パスワード変更</a></div>
+                    <div><a href="{% url 'profile_delete' %}">アカウント削除</a></div>
+                    <div><a href="{% url 'profile_anke' %}">アンケートした内容</a></div>
+                    
+                </li>
+             </div>
+                
             {% else %}
-            <ul class="nav-list">
-                <li class="nav-list-item">
-                    <a class=login href="{% url 'Login' %}">ログイン</a>
+            <div id="menu-icon" onclick="toggleMenu2()">&#9776;</div>
+            <div id="menu_in">
+               
+                <li class="nav-list-item" >
+                    <div><a class=login href="{% url 'Login' %}">ログイン</a></div>
+                    <div><a class=login href="{% url 'register' %}">新規登録</a></div>
                 </li>
-                <li class="nav-list-item">
-                    <a class=login href="{% url 'register' %}">新規登録</a>
-                </li>
-            </ul>
+             </div>
+  
             {% endif %}
         </div>
+        <!-- <button id="toggle-logout">ログアウトトグル</button> -->
     </header>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none"; // メニューを非表示
+            } else {
+                menu.style.display = "block"; // メニューを表示
+            }
+        }
+    </script>
+        <script>
+            function toggleMenu2() {
+                var menu = document.getElementById("menu_in");
+                if (menu.style.display === "block") {
+                    menu.style.display = "none"; // メニューを非表示
+                } else {
+                    menu.style.display = "block"; // メニューを表示
+                }
+            }
+        </script>
+  
+
     <h1>評価集計もしくは、アンケートしてくださる方は、目的の学部と学科を選んでください!</h1>
     <form action="" method="post" class="select_all">
         {% csrf_token %}
@@ -96,7 +133,7 @@
         <p>画像をクリックすることで遷移します</p>
     </div>
     <div class="img_column">
-        <!-- "p-panel-bg-img  " -->
+      
         <section class="img_link">
             <a href="http://www.eng.kobe-u.ac.jp/">
                 <div>
@@ -137,11 +174,15 @@
     </div>
 
     <div class="homepage">
-        <h1>チェット機能です</h1>
-        <a href="{% url 'chatindex' %}">チャットへ</a>
+        <h1>redisを使ったチェット機能です</h1>
+        <a href="{% url 'chathome' %}">チャットへ</a>
         
     </div>
-
+    <div class="homepage">
+    <h1>掲示板</h1>
+    <div><a href="{% url 'board_list' %}">掲示板リスト</a></div>
+    <div><a href="{% url 'board_create' %}">掲示板作成</a></div>
+</div>
 </body>
 
 </html>

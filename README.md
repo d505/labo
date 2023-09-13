@@ -15,7 +15,8 @@
 ## ホームページ
 ラボログのホームページが以下になっています。　　
 学部と学科を選択すると研究室一覧に遷移する。
-<img width="845" alt="image" src="https://github.com/d505/labo/assets/58736165/4537aa0b-1998-4833-88e2-c7ad21d1b322">   
+<img width="854" alt="image" src="https://github.com/d505/labo/assets/58736165/823de3b4-3b62-473d-8934-848de050a987">
+
 
     
 下のほうには、興味で追加したredisを使ったチャットと簡単な掲示板へのリンク  

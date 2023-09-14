@@ -74,10 +74,10 @@
         </script>
   
 
-    <h1>評価集計もしくは、アンケートしてくださる方は、目的の学部と学科を選んでください!</h1>
+    <h1>アンケートしてくださる方やアンケート結果が見たい方は、目的の学部と学科を選んでください!</h1>
     <form action="" method="post" class="select_all">
         {% csrf_token %}
-        <span class="select_label">学部を選択してください</span>
+        <span class="select_label"><h3>学部を選択してください</h3></span>
         <span class="select_box">
             <select name="学部" id="学部">
                 <!-- valueが送信させられる。 -->
@@ -88,7 +88,7 @@
 
             </select>
         </span>
-        <span class="select_label">学科を選択してください</span>
+        <span class="select_label"><h3>学科を選択してください</h3></span>
         <span class="select_box">
             <select name="学科" id="学科">
                 <option value="">選択してください</option>
@@ -128,6 +128,7 @@
             })
         }).change(); 
     </script>
+    <div class="homepage1">
     <div class="homepage">
         <h1>それぞれの学部のホームページ</h1>
         <p>画像をクリックすることで遷移します</p>
@@ -172,16 +173,14 @@
         </section>
 
     </div>
+</div>
 
-    <div class="homepage">
-        <h1>redisを使ったチェット機能です</h1>
-        <a href="{% url 'chathome' %}">チャットへ</a>
+    <div class="homepage3">
+        <a href="{% url 'chathome' %}"><h1>redisを使ったチェット機能</h1></a>
         
     </div>
-    <div class="homepage">
-    <h1>掲示板</h1>
-    <div><a href="{% url 'board_list' %}">掲示板リスト</a></div>
-    <div><a href="{% url 'board_create' %}">掲示板作成</a></div>
+    <div class="homepage2">
+    <div><a href="{% url 'board_list' %}"><h1>掲示板</h1></a></div>
 </div>
 </body>
 

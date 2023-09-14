@@ -281,7 +281,13 @@ def board_create(request):
     return render(request, 'board/board_create.html', context={'create_topic_form': create_topic_form})
 
 def board_list(request): 
-    topics = Topics.objects.all()
+    search_query = request.GET.get('q')
+
+    if search_query:
+        topics = Topics.objects.filter(title__icontains=search_query)
+    else:
+        topics = Topics.objects.all()
+
     return render(request, 'board/board_list.html', context={'topics': topics})
 
 def board_edit(request, id):
@@ -304,13 +310,17 @@ def board_delete(request, id):
         return redirect(reverse('board_list'))
     return render(request, 'board/board_delete.html', context={'delete_topic_form': delete_topic_form})
 
+NGWORD = ['あほ','ぼけ']
 def board_post_texts(request, topic_id):
     post_text_form = PostTextForm(request.POST or None)
     topic = get_object_or_404(Topics, id=topic_id)
     texts = Texts.objects.pick_by_topic_id(topic_id) 
     if post_text_form.is_valid():
-        post_text_form.instance.topic = topic
-        post_text_form.instance.user = request.user
-        post_text_form.save()
+        if request.POST.get('text') in NGWORD:
+            messages.error(request, 'NGワードです。')
+        else:
+            post_text_form.instance.topic = topic
+            post_text_form.instance.user = request.user
+            post_text_form.save()
         return redirect('board_post_texts', topic_id=topic_id)
     return render(request, 'board/board_post_texts.html', context={'post_text_form': post_text_form,'topic': topic,'texts': texts,})

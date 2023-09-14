@@ -42,6 +42,11 @@
             margin: 0 20px;
 
         }
+              
+        body {
+            background-color: rgba(207, 195, 195, 0.922);
+            /* 背景色を灰色に設定 */
+          }
     </style>
 </head>
 
@@ -77,13 +82,16 @@
     </p>
     </p>
     </p>
+    <div class="homepage">
     <form action="" onsubmit="onsubmitButton_Send(); return false;">
-        メッセージ : <input type="text" id="input_message" autocomplete="off" autofocus /><input type="submit" value="送信" />
+        ユーザー名<input type="text" id="input_username"  />
+        メッセージ : <input type="text" id="input_message"  />
+        <p><input type="submit" value="送信" /></p>
     </form>
-    <div class="card mb-3">
+</div>
+    <div class="card mb-3  border-primary bg-light">
         <div class="card-body">
-
-            <ul id="list_message" class="card-text"></ul>
+            <ul id="list_message" class="card-text" style="list-style: none;"></ul>
         </div>
     </div>
 
@@ -91,9 +99,11 @@
     {{room_name|json_script:"room-name"}}
 
     <script>
+          
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
         const inputmessage = document.getElementById("input_message");
         const listmessage = document.getElementById("list_message");
+        const inputusermame = document.getElementById( "input_username" );
 
         let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
         const g_socket = new WebSocket(ws_scheme + "://" + window.location.host + "/ws/chat/" + roomName + "/");
@@ -104,9 +114,9 @@
             if (!message) {
                 return;
             }
-
-            g_socket.send(JSON.stringify({ "message": message }));
-
+            message = 'ユーザー名:'+inputusermame.value+'　'+'メッセージ:'+message
+            g_socket.send(JSON.stringify({ "message": message}));
+            
 
             inputmessage.value = "";
         }

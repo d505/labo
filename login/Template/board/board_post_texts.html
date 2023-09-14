@@ -4,39 +4,77 @@
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <meta charset="utf-8">
   <meta charset="utf-8">
   <!-- bootstrap -->
   <style type="text/css">
     .homepage {
       text-align: center;
     }
+
+    .textsend {
+      text-align: center;
+    }
+
+    body {
+      background-color: rgba(207, 195, 195, 0.922);
+      /* 背景色を灰色に設定 */
+    }
   </style>
 </head>
 
 <body>
+
   {% block content %}
   <div class="homepage">
     <h1>{{ topic.title }}</h1>
   </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <div class="container d-flex justify-content-center align-items-center">
+      <a class="navbar-brand" href="{% url 'home' %}">ホーム</a>
+      <hr class="my-0 mx-2 vertical-divider">
+      <a class="navbar-brand" href="{% url 'board_create' %}">新しいトピックの作成</a>
+      <hr class="my-0 mx-2 vertical-divider">
+      <a class="navbar-brand" href="{% url 'board_list' %}">トピックリスト</a>
+    </div>
+  </nav>
+
   {% for text in texts %}
-  <div class="card mb-3">
-    <div class="card-body">
+  <div class="card mb-3  border-primary bg-light">
+    <div class="card-body ">
       {% if text.user.picture %}
       <img width="50pc" height="50px" src="{{ text.user.picture.url }}">
       {% endif %}
-      <p>ユーザー名: {{ text.user.username }}</p>
+      <p> {% if text.user == request.user %}
+        <span style="color: red;">ユーザー名:{{ text.user.username }}</span>
+        {% else %}
+        ユーザー名:{{ text.user.username }}
+        {% endif %}
+      </p>
       <p class="card-text">{{ text.text | linebreaks }}</p>
     </div>
   </div>
   {% endfor %}
-  <form method="POST">
-    {% csrf_token %}
-    {{ post_text_form.as_p }}
-    <input type="submit" value="送信">
-  </form>
-  <a href="{% url 'board_list' %}">トピックリストへ</a>
+  <div class="textsend">
+    <h2>入力欄</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <div>{{ post_text_form.text }}</div>
+      <input type="submit" value="送信">
+    </form>
+  </div>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
 
   {% endblock %}
+
 </body>
 
 </html>

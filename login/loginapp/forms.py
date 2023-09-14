@@ -67,7 +67,7 @@ class DeleteTopicForm(forms.ModelForm):
         fields = []
 
 class PostTextForm(forms.ModelForm): 
-    text = forms.CharField(label='', widget=forms.Textarea(attrs={'rows':10,'cols':50}))
+    text = forms.CharField(label='', widget=forms.Textarea(attrs={'rows':5,'cols':50}))
     
     class Meta:
         model = Texts

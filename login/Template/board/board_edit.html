@@ -13,9 +13,9 @@
     <form method="POST">
         {% csrf_token %}
         {{ edit_topic_form.as_p }}
-        <input type="submit" value="update">
+        <input type="submit" value="変更">
     </form>
-    <p><a class="navbar-brand" href="{% url 'board_delete' id=id %}">delete</a></p>
+    <p><a class="navbar-brand" href="{% url 'board_delete' id=id %}">削除ページへ</a></p>
     {% endblock %}
 </body>
 

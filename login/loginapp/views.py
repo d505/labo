@@ -307,6 +307,7 @@ def board_delete(request, id):
 def board_post_texts(request, topic_id):
     post_text_form = PostTextForm(request.POST or None)
     topic = get_object_or_404(Topics, id=topic_id)
+    print(topic)
     texts = Texts.objects.pick_by_topic_id(topic_id) 
     if post_text_form.is_valid():
         post_text_form.instance.topic = topic

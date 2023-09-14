@@ -15,13 +15,13 @@
 ## ホーム画面
 ラボログのホーム画面が以下になっています。  
 学部と学科を選択すると研究室一覧に遷移します。下のほうには、興味で追加したredisを使ったチャットと簡単な掲示板へのリンクがあります。ログイン機能などもあります。  
-<img width="958" alt="image" src="https://github.com/d505/labo/assets/58736165/3dcbd4c9-31ab-4beb-a221-3a861225f2fd">
+![image](https://github.com/d505/labo/assets/58736165/2c3d8542-6635-4842-88cf-4d8f37a80128)
+
 
 
 ### プロファイル  
 一般的なユーザーの削除（フラグで管理）やユーザー情報の変更の機能があります。  
-<img width="123" alt="image" src="https://github.com/d505/labo/assets/58736165/5c7e29e4-c317-4228-a43d-193b38f6ce2b">
-
+![image](https://github.com/d505/labo/assets/58736165/a675555c-f45f-468d-9fba-f42491aa2b42)
 
 
 ## 研究室一覧  
@@ -30,31 +30,37 @@
 
 ## 簡単なアンケート　　
 以下が簡単なアンケート内容です。  
-<img width="719" alt="image" src="https://github.com/d505/labo/assets/58736165/f9722fc8-9329-44ae-a4ee-ae27eb2aa344">
+![image](https://github.com/d505/labo/assets/58736165/1f256bb0-5a5a-4c85-92dd-862426678859)
+
 
 
 ## アンケート結果表示
 評価集計ページをクリックすると、各研究室のアンケート結果が見れます。    
 評価結果は以下のようになっています。    
 上の数字は、研究室ごとのユーザーのアンケート結果の平均の値を出しています。下のコメントは各ユーザーの声を個別に表示しています。
-<img width="769" alt="image" src="https://github.com/d505/labo/assets/58736165/44ddd69d-9ecb-42fd-9466-5239b05c1055">
+![image](https://github.com/d505/labo/assets/58736165/9420317c-018d-4ab1-81bb-fb190485b81b)
+
 
 ## チャットや掲示板  
 研究室情報が少ないという問題を考えれば、掲示板やチャット機能が必要になると思います。今回は、勉強もかねて、簡単なredisを使ったチャットとMySQLを使った掲示板の機能を追加しました。
 ### redis  
 簡単なredisを活用したチャット  
 以下でルームを選択する。同じルームを選択することでリアルタイムで繋がります。
-<img width="611" alt="image" src="https://github.com/d505/labo/assets/58736165/54c7f6d6-e574-459a-89ef-22fe0f861d0a">
+![image](https://github.com/d505/labo/assets/58736165/3bc40881-dd16-4278-845d-14cbcf101b26)
+
 ブラウザのタブを2つ開いた通信の例です。片方でつぶやいた言葉がリアルタイムでもう片方に表示される。  
-<img width="947" alt="image" src="https://github.com/d505/labo/assets/58736165/6d3a854a-8764-4ffb-86af-4ad80bf469f8">
+![image](https://github.com/d505/labo/assets/58736165/9ae323f5-692f-4cb1-82c3-6fc582944ade)
+
 
 ## 掲示板 
 簡単な掲示板(MySQLにテキストなどは保存している。）  
 ここのページで興味のあるトピックを選びます。  
 検索欄もあります。  
-<img width="960" alt="image" src="https://github.com/d505/labo/assets/58736165/4005102d-056c-47b7-9ad3-1a7483736f58">
+![image](https://github.com/d505/labo/assets/58736165/fb923241-775b-40c8-96df-83df7bba9b04)
+
 それぞれのトピックをクリックすると次のようになっている。自分の名前は赤くなる。    
-<img width="951" alt="image" src="https://github.com/d505/labo/assets/58736165/e439010b-32ad-44f4-bed2-70e17d87b679">
+![image](https://github.com/d505/labo/assets/58736165/d4440e39-cb23-4ddb-8502-2b21da12b9d6)
+
 
 
 

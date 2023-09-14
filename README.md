@@ -15,11 +15,13 @@
 ## ホーム画面
 ラボログのホーム画面が以下になっています。  
 学部と学科を選択すると研究室一覧に遷移します。下のほうには、興味で追加したredisを使ったチャットと簡単な掲示板へのリンクがあります。ログイン機能などもあります。  
-<img width="960" alt="image" src="https://github.com/d505/labo/assets/58736165/357efbd6-6c79-481c-8013-60318b99ac6e">
+<img width="958" alt="image" src="https://github.com/d505/labo/assets/58736165/3dcbd4c9-31ab-4beb-a221-3a861225f2fd">
+
 
 ### プロファイル  
 一般的なユーザーの削除（フラグで管理）やユーザー情報の変更の機能があります。  
-<img width="163" alt="image" src="https://github.com/d505/labo/assets/58736165/7f54a31b-6c75-44e5-ac72-00d496c72c4f">
+<img width="123" alt="image" src="https://github.com/d505/labo/assets/58736165/5c7e29e4-c317-4228-a43d-193b38f6ce2b">
+
 
 
 ## 研究室一覧  
@@ -41,11 +43,18 @@
 研究室情報が少ないという問題を考えれば、掲示板やチャット機能が必要になると思います。今回は、勉強もかねて、簡単なredisを使ったチャットとMySQLを使った掲示板の機能を追加しました。
 ### redis  
 簡単なredisを活用したチャット  
-<img width="859" alt="image" src="https://github.com/d505/labo/assets/58736165/61d2e161-82b8-4f60-a59f-8dfffce01959">
+以下でルームを選択する。同じルームを選択することでリアルタイムで繋がります。
+<img width="611" alt="image" src="https://github.com/d505/labo/assets/58736165/54c7f6d6-e574-459a-89ef-22fe0f861d0a">
+ブラウザのタブを2つ開いた通信の例です。片方でつぶやいた言葉がリアルタイムでもう片方に表示される。  
+<img width="947" alt="image" src="https://github.com/d505/labo/assets/58736165/6d3a854a-8764-4ffb-86af-4ad80bf469f8">
 
 ## 掲示板 
-簡単な掲示板(MySQLにテキストなどは保存している。）
-<img width="841" alt="image" src="https://github.com/d505/labo/assets/58736165/8d665e3c-ec84-41f6-b97e-65b80be5e47f">
+簡単な掲示板(MySQLにテキストなどは保存している。）  
+ここのページで興味のあるトピックを選びます。  
+検索欄もあります。  
+<img width="960" alt="image" src="https://github.com/d505/labo/assets/58736165/4005102d-056c-47b7-9ad3-1a7483736f58">
+それぞれのトピックをクリックすると次のようになっている。自分の名前は赤くなる。    
+<img width="951" alt="image" src="https://github.com/d505/labo/assets/58736165/e439010b-32ad-44f4-bed2-70e17d87b679">
 
 
 
